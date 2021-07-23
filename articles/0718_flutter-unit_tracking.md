@@ -52,3 +52,8 @@ published: false
 
 
 # 技術スタック
+
+UnitTrackingの使用技術について紹介します。
+
+- モバイルアプリ: Flutter
+  - 状態管理: Riverpod + StateNotifier + Freezed
