@@ -81,7 +81,7 @@ https://firebase.flutter.dev/docs/overview
 
 ![](https://storage.googleapis.com/zenn-user-upload/d729536a4638023cf41aab9b.png)
 
-引用: [https://www.flutter-study.dev/firebase/about-firebase/](https://www.flutter-study.dev/firebase/about-firebase/)
+*引用: [https://www.flutter-study.dev/firebase/about-firebase/](https://www.flutter-study.dev/firebase/about-firebase/)*
 
 # ディレクトリ構成
 
@@ -160,4 +160,23 @@ https://firebase.flutter.dev/docs/overview
     ├── indicator.dart
     └── widegts.dart
 ```
-[参考](https://qiita.com/mazahs/items/36d31c182a838a675f60)
+
+[こちらのサイトを参考にしました](https://qiita.com/mazahs/items/36d31c182a838a675f60)
+
+# デザイン
+デザインは[figma](https://www.figma.com/)を使いました。デザインはFlutterのWidgetに合わせて作っていくことを意識し、色はfigmaにはたくさんの良質なテンプレートがあるのでそれを参考に作りました。
+
+またデザインとかレイアウトなどはできるわけでも得意なわけでもないので、もう既に素晴らしいデザイナーさんが関係しているアプリのLINEとかTwitter、Facebook、Googleなどの使えそうな良いところを探しながらっていう感じで、、
+
+![](https://storage.googleapis.com/zenn-user-upload/08e5e724d4136c799ab0d6c2.png)
+
+# 開発して良かったこと
+- Flutter + Firebaseについて知ることができた
+- スマホアプリの開発からリリースまで一通りは経験することができた
+- 1人でやり遂げるという経験をつめた
+- 自分が誇れるプロダクトを持つことができた
+- 単純に楽しかった :hugs:
+
+# 開発で大変だったこと
+
+# UnitTrackingのこれからについて
