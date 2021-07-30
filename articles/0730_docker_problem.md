@@ -1,9 +1,9 @@
 ---
 title: "docker-compose up 時にでたエラーの解決"
-emoji: ":beers:"
+emoji: ":astonished:"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Docker", ]
-published: false
+published: true
 ---
 
 # エラー内容
