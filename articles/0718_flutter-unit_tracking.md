@@ -174,7 +174,8 @@ https://firebase.flutter.dev/docs/overview
 - **Flutter + Firebase**について知ることができた
 - スマホアプリの**開発からリリースまで**一通りは経験することができた
 - 1人でやり遂げるという**経験**をつめた
-- 自分が誇れるプロダクトを持つことができた
+- 自由に開発できる
+- 自分のプロダクトを持つことができた(ポートフォリオにもなる!!)
 - 単純に楽しかった 👍 
 
 # 開発で大変だったこと
@@ -186,8 +187,31 @@ https://firebase.flutter.dev/docs/overview
 
 - **状態管理わからん**
   Flutterを2週間ぐらいしか学習していないということもあって、一番立ち止まったとこがprovider + state notifier + freezedでの状態管理です。
-  ~~今でもまだ完璧にわかったということにはなっていないんですけど~~ 
+  ~~今でもまだわからないんですけど（笑）~~ 
   特にその状態管理で、Firestoreからとってきたデータを状態管理に当てはめるというとこがめちゃくちゃわかんなくて大変でした。。
 
+- **codemagicらへんはわからん**
+  testコードなどは早めにリリースしたかったので、そんなにちゃんとやってないので、ちょっと便利さをわからなかったですし、なんか色々と設定が大変だなと一応使ってみての感想ではそんな感じでした
 
 # UnitTrackingのこれからについて
+- **キャンパスの学生が約2万人いるみたいなので、その半分の1万人ユーザー登録が目標！！**
+- **新しい機能（チャット機能）などの追加**
+- **新入生が入ってきても毎年使ってもらえるようなアプリに**
+
+初めてのアプリで経験という一番大きなものは得られて満足なんですけど、やっぱりこのアプリがどこまで成長していくのか、自分がどれぐらい成長させることができるのか頑張りどころであり、とても楽しみです！
+
+またまだインストールして使ってない方はぜひとも使ってみての感想など、または記事への感想でも、もらえたら開発へのモチベーションにめちゃくちゃなりますので待ってます！ :palms_up_together:
+
+後はところどころキャプチャー画面でのデバックとなっているところは直さないとな。。（笑）
+
+![UnitTracking](https://storage.googleapis.com/zenn-user-upload/fa5324b08a93fb3eae1ba2af.png)
+
+ダウンロードはこちら:point_down:
+[iOS]()
+[Android](https://play.google.com/store/apps/details?id=net.unit_tracking.unit_tracking)
+
+# お世話になった記事など
+https://medium.com/flutter-jp/state-1daa7fd66b94
+https://qiita.com/masaibar/items/fdc1a7ee46de0edcd612
+https://zenn.dev/kazutxt/books/flutter_practice_introduction
+https://medium.com/@riscait/building-and-delivering-a-flavor-enabled-flutter-app-using-codemagic-5225a6070224
