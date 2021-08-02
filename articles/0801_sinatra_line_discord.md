@@ -3,7 +3,7 @@ title: "【コピペでOK】DiscordのメッセージをLINEのグループで�
 emoji: "🎃"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["ruby", "sinatra", "discord", "linebot"]
-published: false
+published: true
 ---
 
 # 概要
@@ -43,6 +43,7 @@ heroku/7.0.0 (darwin-x64) node-v8.0.0
 ```
 
 3. herokuコマンドが叩けて、ログインできたらOK
+
 ```
 $ heroku login
 heroku: Press any key to open up the browser to login or q to exit
@@ -54,6 +55,7 @@ Logged in as me@example.com
 ```
 
 4. 作業ディレクトリを作成
+
 ```
 $ mkdir freechat_app
 $ cd freechat_app/
@@ -64,13 +66,14 @@ https://devcenter.heroku.com/ja/articles/heroku-cli#verifying-your-installation
 
 # sinatraを使う
 - sinatraをBundler経由でインストールします。
+
 ```
 $ bundle init
 $ vim Gemfile
 ```
 
 - vimでGemfileを編集していきます。
-```Gemfile
+```rb:Gemfile
 source "https://rubygems.org"
 gem 'sinatra'
 gem 'line-bot-api'
@@ -88,7 +91,7 @@ $ bundle install --path=vendor/bundle
 $ touch app_main.rb
 ```
 
-```app_main.rb
+```rb:app_main.rb
 require 'sinatra'
 require 'line/bot'
 
@@ -130,15 +133,18 @@ https://note.com/exteoi/n/nf1c37cb26c41
 コマンドで環境変数も設定できるみたいですけど、なんか自分側の環境ではできなかったのでサイト側から設定しました。
 
 - LINE
+
 |   環境変数名(KEY)   |       値(VALUE)      |
 | ------------------- | -------------------- |
 | LINE_CHANNEL_SECRET | Channel Secret       |
 | LINE_CHANNEL_TOKEN  | Channel access token |
 
+
 - Discord
-|   環境変数名(KEY)  |      値(VALUE)      |
-| ------------------ | -------------------- |
-| DISCORD_BOT_TOKEN  | Discord Bot token      |
+
+|   環境変数名(KEY)  |     値(VALUE)     |
+| ---- | ---- |
+| DISCORD_BOT_TOKEN  | Discord Bot token |
 | DISCORD_CLIENT_ID  | Discord Client ID |
 
 計4つの環境変数をheroku側で設定します。
@@ -147,7 +153,8 @@ https://qiita.com/mzmz__02/items/64db94b8fc67ee0a9068#%E3%82%B5%E3%82%A4%E3%83%8
 
 
 # コード
-```
+
+```rb:app_main.rb
 require 'line/bot'
 require 'discordrb'
 require 'net/http'
@@ -166,6 +173,7 @@ def client
   }
 end
 
+# messageと送信者名を合わせる
 def add_message(str1, str2)
   return str1 + str2
 end
@@ -175,6 +183,8 @@ bot.command :line do |event|
   bot_message.slice!(0,6)
   event.respond "#{bot_message}"
   push_line(add_message(event.user.name, bot_message))
+  # messageだけ送信したい場合
+  # push_line(bot_message)
 end
 
 
@@ -211,7 +221,7 @@ bot.run
 この記事を参考にLINEのグループIDを取得する
 https://blog.taka73.net/2020/12/23/line-messaging-api-line-bot/
 
-```
+```rb:app_main.rb
   request.body = JSON.dump({
     "to" => "groupId", <- このgroupIdを取得したIDに置き換える
     "messages" => [
@@ -226,8 +236,19 @@ https://blog.taka73.net/2020/12/23/line-messaging-api-line-bot/
 ## Procfileの作成
 Procfileは"Herokuに何をさせるか"が書かれた指示書のようなファイルです。
 
-```Procfile
+```rb:Procfile
 bundle exec ruby app_main.rb
+```
+
+## ディレクトリ構造
+```
+.bundle 
+.gitignore 
+Gemfile 
+Gemfile.lock 
+Procfile 
+app_main.rb 
+vendor
 ```
 
 
@@ -236,7 +257,7 @@ Herokuへのデプロイにはgitを使います。
 なのでまずはHeroku側に必要のないファイルをアップロードしないためにも.gitignoreファイルを作成します。
 
 ## .gitignoreファイルのコード
-```.gitignore
+```git:.gitignore
 #----------------------------------------------------------------------------
 # This is the .gitignore file for the rails-composer repository.
 #
@@ -325,7 +346,8 @@ pickle-email-*.html
 https://qiita.com/sho7650/items/ebd87c5dc2c4c7abb8f0
 https://j-hack.gitbooks.io/deploy-meteor-app-to-heroku/content/step4.html
 
-GitHubにコードを挙げないという人は下記を参考にデプロイできるはずです。
+GitHubにコードを挙げないという人は下記の順序でデプロイできるはずです。
+herokuのブラウザ画面から今回使用するアプリケーションのDeployタブの説明をもとに進めていくのが確実です。
 ```
 $ git init
 $ heroku git:remote -a <herokuのアプリケーション名>
@@ -348,7 +370,7 @@ libsodium not available! You can continue to use discordrb as normal but voice s
 
 libsodiumがないよ！っていっているのでURLからコマンドをコピペでインストール
 ```
-brew install libsodium
+$ brew install libsodium
 ```
 
 https://teratail.com/questions/166426
@@ -370,10 +392,13 @@ https://teratail.com/questions/166426
  !     Push failed
 ```
 
-エラー分の中に描いてあるコードをターミナルで実行して、add,commitしてまたプッシュする
+エラー分の中にかいてあるコードをターミナルで実行して、add,commitしてまたプッシュする
 ```
 $ budle lock --add-platform x88_64-linux
 ```
+
+# 今回のコードのGitHubレポジトリ
+https://github.com/tamaki8021/line_discord_connect
 
 # 参考
 https://qiita.com/kkbase515/items/d7ada101e3095c2bd051
