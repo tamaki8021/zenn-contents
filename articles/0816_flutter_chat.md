@@ -3,15 +3,20 @@ title: "[flutter_chat_ui] Flutter x Firebaseでチャット機能を作成する
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "firebase", "chat", "tech"]
-published: false
+published: true
 ---
 
 # 概要
 [flutter_chat_ui](https://pub.dev/packages/flutter_chat_ui)というUIをいい感じにしてくれたり、ファイルやリンク、画像の送信をいい感じに手助けしてくれるパッケージを使って、チャット機能を作っていきます。
 
+- 今回実装したコードのGitHubリポジトリ
+
+https://github.com/tamaki8021/flutter-demo-firebase
+
 :::message
 状態管理は範囲外なので、そこのところよろしくおねがいします。
 :::
+
 
 # 環境
 
@@ -152,6 +157,8 @@ class RoomListPage extends StatelessWidget {
 }
 ```
 
+![](https://storage.googleapis.com/zenn-user-upload/a612bf7871a85c9d414c6d8a.png)
+
 # チャットルームの作成画面
 
 ```dart: add_room_page.dart
@@ -219,3 +226,232 @@ class _AddPostPageState extends State<AddRoomPage> {
   }
 }
 ```
+
+![](https://storage.googleapis.com/zenn-user-upload/045710547dff8d9d3740a521.png)
+
+# チャットページの作成
+
+- メッセージ送信ができるだけのシンプルな実装
+
+```dart:chat_page.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+// flutter_chat_uiを使うためのパッケージをインポート
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
+import 'package:provider/provider.dart';
+// ランダムなIDを採番してくれるパッケージ
+import 'package:uuid/uuid.dart';
+
+
+class ChatPage extends StatefulWidget {
+  const ChatPage(this.name, {Key? key}) : super(key: key);
+
+  final String name;
+  @override
+  _ChatPageState createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  List<types.Message> _messages = [];
+  String randomId = Uuid().v4();
+  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c', firstName: '名前');
+
+
+  void initState() {
+    _getMessages();
+    super.initState();
+  }
+
+  // firestoreからメッセージの内容をとってきて_messageにセット
+  void _getMessages() async {
+    final getData = await FirebaseFirestore.instance
+        .collection('chat_room')
+        .doc(widget.name)
+        .collection('contents')
+        .get();
+
+    final message = getData.docs
+        .map((d) => types.TextMessage(
+            author:
+                types.User(id: d.data()['uid'], firstName: d.data()['name']),
+            createdAt: d.data()['createdAt'],
+            id: d.data()['id'],
+            text: d.data()['text']))
+        .toList();
+
+    setState(() {
+      _messages = [...message];
+    });
+  }
+
+  // メッセージ内容をfirestoreにセット
+  void _addMessage(types.TextMessage message) async {
+    setState(() {
+      _messages.insert(0, message);
+    });
+    await FirebaseFirestore.instance
+        .collection('chat_room')
+        .doc(widget.name)
+        .collection('contents')
+        .add({
+      'uid': message.author.id,
+      'name': message.author.firstName,
+      'createdAt': message.createdAt,
+      'id': message.id,
+      'text': message.text,
+    });
+  }
+
+  // リンク添付時にリンクプレビューを表示する
+  void _handlePreviewDataFetched(
+    types.TextMessage message,
+    types.PreviewData previewData,
+  ) {
+    final index = _messages.indexWhere((element) => element.id == message.id);
+    final updatedMessage = _messages[index].copyWith(previewData: previewData);
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      setState(() {
+        _messages[index] = updatedMessage;
+      });
+    });
+  }
+
+  // メッセージ送信時の処理
+  void _handleSendPressed(types.PartialText message) {
+    final textMessage = types.TextMessage(
+            author: _user,
+            createdAt: DateTime.now().millisecondsSinceEpoch,
+            id: randomId,
+            text: message.text,
+          );
+
+    _addMessage(textMessage);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('チャット'),
+      ),
+      body: Chat(
+        theme: const DefaultChatTheme(
+          // メッセージ入力欄の色
+          inputBackgroundColor: Colors.blue,
+          // 送信ボタン
+          sendButtonIcon: Icon(Icons.send),
+          sendingIcon: Icon(Icons.update_outlined),
+        ),
+        // ユーザーの名前を表示するかどうか
+        showUserNames: true,
+        // メッセージの配列
+        messages: _messages,
+        onPreviewDataFetched: _handlePreviewDataFetched,
+        onSendPressed: _handleSendPressed,
+        user: _user,
+      ),
+    );
+  }
+}
+```
+
+![](https://storage.googleapis.com/zenn-user-upload/8689d9d17b636fdd1e9b4ac2.png)
+
+:::message
+ここからは実際に実装して試していないので参考程度に
+:::
+
+## 画像送信の処理の追加
+- [image_picker](https://pub.dev/packages/image_picker)を使用して画像をメッセージとして送信する
+
+```diff dart:chat_page.dart
+import 'package:image_picker/image_picker.dart';
+
+class _ChatPageState extends State<ChatPage> {
+
++void _handleImageSelection() async {
++    final result = await ImagePicker().pickImage(
++      imageQuality: 70,
++      maxWidth: 1440,
++      source: ImageSource.gallery,
++    );
+
++    if (result != null) {
++      final bytes = await result.readAsBytes();
++      final image = await decodeImageFromList(bytes);
+
++      final message = types.ImageMessage(
++        author: _user,
++        createdAt: DateTime.now().millisecondsSinceEpoch,
++        height: image.height.toDouble(),
++        id: randomString(),
++        name: result.name,
++        size: bytes.length,
++        uri: result.path,
++        width: image.width.toDouble(),
++      );
+
++      _addMessage(message);
++    }
++  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('チャット'),
+      ),
+      body: Chat(
+        theme: const DefaultChatTheme(
+          // メッセージ入力欄の色
+          inputBackgroundColor: Colors.blue,
+          // 送信ボタン
+          sendButtonIcon: Icon(Icons.send),
+          sendingIcon: Icon(Icons.update_outlined),
+        ),
+        // ユーザーの名前を表示するかどうか
+        showUserNames: true,
+        // メッセージの配列
+        messages: _messages,
++        onAttachmentPressed: _handleImageSelection,
+        onPreviewDataFetched: _handlePreviewDataFetched,
+        onSendPressed: _handleSendPressed,
+        user: _user,
+      ),
+    );
+  }
+```
+
+# flutter x firebase専用のパッケージもあるらしい...
+今回は最初の方でも紹介したとおり、[flutter_chat_ui](https://pub.dev/packages/flutter_chat_ui)という名前のパッケージを使ってfirebaseにデータを保存して引っ張ってくるところまで実装しましたが、[flutter_firebase_chat_core](https://github.com/flyerhq/flutter_firebase_chat_core)という名前のflutterとfirebaseに特化したパッケージがあるみたいです。
+
+- GitHub:
+
+https://github.com/flyerhq/flutter_firebase_chat_core
+
+- document:
+
+https://docs.flyer.chat/flutter/firebase/firebase-usage
+
+- exsample:
+
+https://github.com/flyerhq/flutter_firebase_chat_core/tree/main/example
+
+# 参考
+- GitHub:
+
+https://github.com/flyerhq/flutter_firebase_chat_core
+
+- exsample:
+
+https://github.com/flyerhq/flutter_chat_ui/tree/main/example
+
+- document:
+
+https://docs.flyer.chat/flutter/chat-ui/basic-usage
