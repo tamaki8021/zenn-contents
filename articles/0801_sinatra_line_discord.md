@@ -1,8 +1,8 @@
 ---
-title: "【コピペでOK】DiscordのメッセージをLINEのグループでも共有する"
+title: "【Ruby sinatra】DiscordのメッセージをLINEのグループでも共有する"
 emoji: "🎃"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["ruby", "sinatra", "discord", "linebot"]
+topics: ["ruby", "sinatra", "discord", "linebot", "業務効率化"]
 published: true
 ---
 
