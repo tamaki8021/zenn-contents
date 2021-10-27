@@ -1,6 +1,6 @@
 ---
 title: "【Flutter】flutter２週間学習でスマホアプリ開発未経験文系大学生が単位管理アプリをリリースしてみた話"
-emoji: ":beer:"
+emoji: "🐥"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["flutter","スマホアプリ","firebase","個人開発"]
 published: false
@@ -14,8 +14,10 @@ published: false
 # リリースしたアプリ
 ![UnitTracking](https://storage.googleapis.com/zenn-user-upload/fa5324b08a93fb3eae1ba2af.png)
 
-ダウンロードはこちら:point_down:
-[iOS]()
+ダウンロードはこちら 👇
+~~[iOS]()~~
+Apple Developer Programの登録に苦戦しているため未リリース 
+
 [Android](https://play.google.com/store/apps/details?id=net.unit_tracking.unit_tracking)
 
 
@@ -197,17 +199,18 @@ https://firebase.flutter.dev/docs/overview
 - **キャンパスの学生が約2万人いるみたいなので、その半分の1万人ユーザー登録が目標！！**
 - **新しい機能（チャット機能）などの追加**
 - **新入生が入ってきても毎年使ってもらえるようなアプリに**
+- iOS版のリリース
 
 初めてのアプリで経験という一番大きなものは得られて満足なんですけど、やっぱりこのアプリがどこまで成長していくのか、自分がどれぐらい成長させることができるのか頑張りどころであり、とても楽しみです！
 
-またまだインストールして使ってない方はぜひとも使ってみての感想など、または記事への感想でも、もらえたら開発へのモチベーションにめちゃくちゃなりますので待ってます！ :palms_up_together:
+またまだインストールして使ってない方はぜひとも使ってみての感想など、または記事への感想でも、もらえたら開発へのモチベーションにめちゃくちゃなりますので待ってます！ 
 
 後はところどころキャプチャー画面でのデバックとなっているところは直さないとな。。（笑）
 
 ![UnitTracking](https://storage.googleapis.com/zenn-user-upload/fa5324b08a93fb3eae1ba2af.png)
 
-ダウンロードはこちら:point_down:
-[iOS]()
+ダウンロードはこちら 👇
+~~[iOS]()~~
 [Android](https://play.google.com/store/apps/details?id=net.unit_tracking.unit_tracking)
 
 # お世話になった記事など
