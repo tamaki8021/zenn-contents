@@ -3,7 +3,7 @@ title: "【Flutter】flutter２週間学習でスマホアプリ開発未経験�
 emoji: "🐥"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["flutter","スマホアプリ","firebase","個人開発"]
-published: false
+published: true
 ---
 
 個人開発で単位管理アプリ「UnitTracking」をリリースしました！
