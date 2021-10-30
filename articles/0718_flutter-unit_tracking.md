@@ -1,5 +1,5 @@
 ---
-title: "【Flutter】flutter２週間学習でスマホアプリ開発未経験文系大学生が単位管理アプリをリリースしてみた話"
+title: "【Flutter】２週間学習でスマホアプリ開発未経験文系大学生が単位管理アプリをリリースしてみた話"
 emoji: "🐥"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter","スマホアプリ","firebase","個人開発"]
