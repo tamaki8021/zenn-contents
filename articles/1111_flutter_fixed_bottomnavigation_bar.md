@@ -1,5 +1,5 @@
 ---
-title: "【Flutter】pushNamedでCupertinoTabBarによるBottomNavigationBar機能 固定ボトムナビゲーションバーを作る"
+title: "【Flutter】pushNamedで行う固定ボトムナビゲーションバーを作る"
 emoji: "🕌"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "BottomNavigationBar", "dart", "CupertinoTabBar"]
