@@ -1,5 +1,5 @@
 ---
-title: "[Flutter AdMob]インタースティシャル広告を表示する"
+title: "【Flutter】AdMobインタースティシャル広告を表示する"
 emoji: "🐡"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "AdMob", "interstitial", "hooks", "広告"]

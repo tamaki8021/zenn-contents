@@ -1,5 +1,5 @@
 ---
-title: "flutter_hooksのuseAnimationControllerを使ってアニメーションを実装してみた"
+title: "【Flutter】flutter_hooksのuseAnimationControllerを使ってアニメーションを実装してみた"
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "hooks", "アニメーション"]

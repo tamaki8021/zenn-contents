@@ -1,5 +1,5 @@
 ---
-title: "Flutterアプリに退会機能を追加したい"
+title: "【Flutter】退会機能を追加したい"
 emoji: "📘"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "firebase", "CloudFunctions", "node.js"]

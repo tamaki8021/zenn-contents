@@ -1,5 +1,5 @@
 ---
-title: "[flutter_chat_ui] Flutter x Firebaseでチャット機能を作成する"
+title: "【Flutter】 Flutter x Firebaseでチャット機能を作成する"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "firebase", "chat", "tech"]
