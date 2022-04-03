@@ -15,8 +15,8 @@ published: true
 ![UnitTracking](https://storage.googleapis.com/zenn-user-upload/fa5324b08a93fb3eae1ba2af.png)
 
 ダウンロードはこちら 👇
-~~[iOS]()~~
-Apple Developer Programの登録に苦戦しているため未リリース 
+[iOS](https://apps.apple.com/app/%E5%8D%98%E4%BD%8D%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA-unittracking/id1615779563)
+~~Apple Developer Programの登録に苦戦しているため未リリース~~ 
 
 [Android](https://play.google.com/store/apps/details?id=net.unit_tracking.unit_tracking)
 
@@ -210,7 +210,7 @@ https://firebase.flutter.dev/docs/overview
 ![UnitTracking](https://storage.googleapis.com/zenn-user-upload/fa5324b08a93fb3eae1ba2af.png)
 
 ダウンロードはこちら 👇
-~~[iOS]()~~
+[iOS](https://apps.apple.com/app/%E5%8D%98%E4%BD%8D%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA-unittracking/id1615779563)
 [Android](https://play.google.com/store/apps/details?id=net.unit_tracking.unit_tracking)
 
 # お世話になった記事など
