@@ -3,7 +3,7 @@ title: "expoでfirebase-authのgoogleログインを実装する"
 emoji: "💭"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["expo", "ReactNative", "firebase", "google", "firebaseAuth"]
-published: false
+published: true
 ---
 
 # 初めに
