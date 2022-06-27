@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "new": " npx zenn new:article --slug $npm_config_slug",
     "preview": "npx zenn preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

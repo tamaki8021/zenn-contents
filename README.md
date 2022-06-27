@@ -7,4 +7,6 @@
 ```
 # 記事の作成
 $ npx zenn new:article --slug 記事のスラッグ
+
+$ npm run new -slug='<記事のスラッグ>'
 ```
