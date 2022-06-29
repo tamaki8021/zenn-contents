@@ -227,9 +227,77 @@ $ go run main.go cat
 # リリースしてみる
 
 ## 静的ファイルがバイナリに含まれるように変更
-Go は通常、ビルド時にソースファイル以外の静的ファイルをバイナリに含めることができないので（今回で言うと```.txt``ファイル）[statik](https://github.com/rakyll/statik)というパッケージを使って、ビルド時に一緒にバイナリに含めていきます！
+Go は通常、ビルド時にソースファイル以外の静的ファイルをバイナリに含めることができないので（今回で言うと`.txt`ファイル） ~~[statik](https://github.com/rakyll/statik)というパッケージを使って、~~ ビルド時に一緒にバイナリに含めていきます！
 
-[こちらの記事](https://zenn.dev/kou_pg_0131/articles/go-build-with-static-files-by-statik)で紹介されている通りにやっていけば問題ないと思います！
+~~[こちらの記事](https://zenn.dev/kou_pg_0131/articles/go-build-with-static-files-by-statik)で紹介されている通りにやっていけば問題ないと思います！~~
+
+
+今回は[statik](https://github.com/rakyll/statik)を使った方法を紹介していますが、
+下記の[コメント](https://zenn.dev/link/comments/fa20d3469b66b3)にあるように`Go1.16`からオフィシャルとしてサポートされた、`go:embed`を使った方が良さそうです！
+
+:::message
+ `go:embed`を使用した方法を追加しました！
+:::
+
+## go:embedを使用した方法
+
+### ファイルを読み込む設定をする
+
+`embed`では、埋め込むファイルはembedを記述するファイルが有る場所からの相対パスになります。例えば、 libs/hoge.go の中でembedする場合、 libs/ 以下のファイルのみ埋め込むことができます。
+今回は`aa`以下のファイルを読み取りたいので、`embed.go`ファイルを`aa`ディレクトリ下に作成し、独自の独自のパッケージとしてプログラムの他の部分でも使用できるようにします。
+```
+.
+├── aa
+│   └── cat.txt
+│   └── embed.go
+```
+
+```go: embed.go
+package aa
+
+import "embed"
+
+//go:embed *.txt
+var Aa embed.FS
+```
+
+### 生成されたファイルを読み込む
+
+```go: cat.go
+package cmd
+
+import (
+  "fmt"
+  "os"
+
+ 	 "<mod initの時に宣言したimportpath>/aa"
+	"github.com/spf13/cobra"
+)
+
+var catCmd = &cobra.Command{
+	Use:   "cat",
+	Short: "Print the ascii art of cat",
+	Run: func(cmd *cobra.Command, args []string) {
+    file, err := aa.Open("cat.txt") // 相対パスなので / を取り除いてファイル名を指定
+    if err != nil {
+      fmt.Println(err)
+    }
+    defer file.Close()
+
+    // ファイルを読み込んで出力
+    buf := new(bytes.Buffer)
+    buf.ReadFrom(file)
+
+    fmt.Print(buf.String())
+	},
+}
+
+func init() {
+  rootCmd.AddCommand(catCmd)
+}
+```
+
+:::details statikを使用した方法
 
 ### ファイルを生成する
 ```
@@ -268,7 +336,7 @@ var catCmd = &cobra.Command{
       fmt.Println(err)
     }
 
-    file, err := statikFS.Open("/cat.txt")
+    file, err := statikFS.Open("/cat.txt") // 絶対パスで / が先頭に付く
     if err != nil {
       fmt.Println(err)
     }
@@ -286,6 +354,7 @@ func init() {
   rootCmd.AddCommand(catCmd)
 }
 ```
+:::
 
 ## GitHub Actions と GoReleaser を使って brew コマンドでインストールできるようにする
 
