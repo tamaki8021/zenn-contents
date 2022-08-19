@@ -1,5 +1,5 @@
 ---
-title: "1日でGoのcobraでサクッとCLIが作れちゃった話"
+title: "【Golang】1日でGoのcobraでサクッとCLIが作れちゃった話"
 emoji: "🥴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Go", "cobra", "CLI"]
