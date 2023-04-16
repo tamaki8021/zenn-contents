@@ -70,7 +70,7 @@ $ go get -u github.com/spf13/cobra@latest
 ```
 # コマンドのボイラーテンプレートを作成。
 # viper=trueにすれば設定ファイル読み込み機能ありなものになる。
-$ cobra init --license MIT --viper=false
+$ cobra-cli init --license MIT --viper=false
 ```
 
 こんな感じの雛形が出来上がる
